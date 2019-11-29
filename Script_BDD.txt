@@ -1,0 +1,648 @@
+/*
+ ----------------------------------------------------------------------------
+             Génération d'une base de données pour
+                        SQL Server 2000
+                       (29/11/2019 16:16:22)
+ ----------------------------------------------------------------------------
+     Nom de la base : MLR3
+     Projet : Espace de travail
+     Auteur : LMC
+     Date de dernière modification : 29/11/2019 16:16:08
+ ----------------------------------------------------------------------------
+*/
+
+
+go
+
+/* -----------------------------------------------------------------------------
+      OUVERTURE DE LA BASE MLR3
+----------------------------------------------------------------------------- */
+
+create database PPE3_GSB
+go
+
+use PPE3_GSB
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : ASSOCIATIONS
+----------------------------------------------------------------------------- */
+
+create table ASSOCIATIONS
+  (
+     IDASSOCIATIONS smallint identity (1, 1)   ,
+     IDPAYSDEPENDANCE smallint  not null  ,
+     NOM char(32)  null  ,
+     MISSION char(255)  null  ,
+     NOMRESPONSABLE char(32)  null  
+     ,
+     constraint PK_ASSOCIATIONS primary key (IDASSOCIATIONS)
+  ) 
+go
+
+
+
+/*      INDEX DE ASSOCIATIONS      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : CATÉGORIE
+----------------------------------------------------------------------------- */
+
+create table CATÉGORIE
+  (
+     IDCATEGORIE smallint identity (1, 1)   ,
+     LIBELLECATEGORIE char(64)  null  
+     ,
+     constraint PK_CATÉGORIE primary key (IDCATEGORIE)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : ACTIONMENEE
+----------------------------------------------------------------------------- */
+
+create table ACTIONMENEE
+  (
+     IDACTION smallint identity (1, 1)   ,
+     LIBELLE char(255)  null  
+     ,
+     constraint PK_ACTIONMENEE primary key (IDACTION)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : CONTROLE
+----------------------------------------------------------------------------- */
+
+create table CONTROLE
+  (
+     IDCONTROLE smallint identity (1, 1)   ,
+     IDTYPECONTROLE smallint  not null  ,
+     IDENTREPRISE smallint  not null  ,
+     IDZONE smallint  not null  ,
+     DATECONTROLE datetime  null  ,
+     RESUMÉ char(64)  null  ,
+     MONTANT int  null  
+     ,
+     constraint PK_CONTROLE primary key (IDCONTROLE)
+  ) 
+go
+
+
+
+/*      INDEX DE CONTROLE      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : ARTISTE
+----------------------------------------------------------------------------- */
+
+create table ARTISTE
+  (
+     IDARTISTE smallint identity (1, 1)   ,
+     NOM char(32)  null  ,
+     PRENOM char(32)  null  ,
+     TEL char(12)  null  ,
+     ADRS char(40)  null  ,
+     MOUVEMENTS char(60)  null  
+     ,
+     constraint PK_ARTISTE primary key (IDARTISTE)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : EVÈNEMENTS
+----------------------------------------------------------------------------- */
+
+create table EVÈNEMENTS
+  (
+     IDEVENEMENTS smallint identity (1, 1)   ,
+     IDTHEME smallint  not null  ,
+     DATEDEBUT datetime  null  ,
+     VILLE char(32)  null  ,
+     DATEFIN datetime  null  
+     ,
+     constraint PK_EVÈNEMENTS primary key (IDEVENEMENTS)
+  ) 
+go
+
+
+
+/*      INDEX DE EVÈNEMENTS      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : PAYSDEPENDANCE
+----------------------------------------------------------------------------- */
+
+create table PAYSDEPENDANCE
+  (
+     IDPAYSDEPENDANCE smallint identity (1, 1)   ,
+     PAYSDEPENDANCE char(50)  null  
+     ,
+     constraint PK_PAYSDEPENDANCE primary key (IDPAYSDEPENDANCE)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : CATPRODUIT
+----------------------------------------------------------------------------- */
+
+create table CATPRODUIT
+  (
+     CATPRODUIT smallint identity (1, 1)   ,
+     LIBELLE char(45)  null  
+     ,
+     constraint PK_CATPRODUIT primary key (CATPRODUIT)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : VIP
+----------------------------------------------------------------------------- */
+
+create table VIP
+  (
+     IDVIP smallint identity (1, 1)   ,
+     IDCATEGORIE smallint  not null  ,
+     NOM char(20)  null  ,
+     ADR char(32)  null  ,
+     EMAIL char(32)  null  ,
+     VILLE char(32)  null  
+     ,
+     constraint PK_VIP primary key (IDVIP)
+  ) 
+go
+
+
+
+/*      INDEX DE VIP      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : ENTREPRISECONTROLE
+----------------------------------------------------------------------------- */
+
+create table ENTREPRISECONTROLE
+  (
+     IDENTREPRISE smallint identity (1, 1)   ,
+     NOM char(128)  null  ,
+     ADR char(128)  null  ,
+     EMAIL char(40)  null  
+     ,
+     constraint PK_ENTREPRISECONTROLE primary key (IDENTREPRISE)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : THEME
+----------------------------------------------------------------------------- */
+
+create table THEME
+  (
+     IDTHEME smallint identity (1, 1)   ,
+     LIBELLE char(150)  null  
+     ,
+     constraint PK_THEME primary key (IDTHEME)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : ZONE_DE_STOCKAGE
+----------------------------------------------------------------------------- */
+
+create table ZONE_DE_STOCKAGE
+  (
+     IDZONE smallint identity (1, 1)   ,
+     CATPRODUIT smallint  not null  ,
+     NOM char(32)  null  ,
+     EMPLACEMENT char(100)  null  
+     ,
+     constraint PK_ZONE_DE_STOCKAGE primary key (IDZONE)
+  ) 
+go
+
+
+
+/*      INDEX DE ZONE_DE_STOCKAGE      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : CAMPAGNES_DE_SENSIBILISATION
+----------------------------------------------------------------------------- */
+
+create table CAMPAGNES_DE_SENSIBILISATION
+  (
+     IDCAMPAGNES smallint identity (1, 1)   ,
+     IDAGENCE smallint  not null  ,
+     INTITULÉ char(50)  null  ,
+     OBJECTIF char(128)  null  ,
+     PUBLICCIBLÉ char(50)  null  ,
+     DATEDEBUT datetime  null  ,
+     DATEFIN datetime  null  
+     ,
+     constraint PK_CAMPAGNES_DE_SENSIBILISATION primary key (IDCAMPAGNES)
+  ) 
+go
+
+
+
+/*      INDEX DE CAMPAGNES_DE_SENSIBILISATION      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : AGENCE
+----------------------------------------------------------------------------- */
+
+create table AGENCE
+  (
+     IDAGENCE smallint identity (1, 1)   ,
+     NOMAGENCE char(32)  null  ,
+     LIBELLEACTIVITÉ char(32)  null  ,
+     ADRESSEAGENCE char(60)  null  ,
+     TELEPHONE char(12)  null  ,
+     EMAIL char(32)  null  ,
+     URLSITEWEB char(120)  null  ,
+     TYPEAGENCE char(32)  null  ,
+     CONNUES bit  null  
+     ,
+     constraint PK_AGENCE primary key (IDAGENCE)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : PARTENARIAT
+----------------------------------------------------------------------------- */
+
+create table PARTENARIAT
+  (
+     IDPARTENARIAT smallint identity (1, 1)   ,
+     IDASSOCIATIONS smallint  not null  ,
+     IDACTION smallint  not null  ,
+     IDPAYSDEPENDANCE smallint  not null  ,
+     BUDGETPREVISIONNEL int  null  ,
+     BUDGETREEL int  null  ,
+     DATEPARTENARIAT datetime  null  
+     ,
+     constraint PK_PARTENARIAT primary key (IDPARTENARIAT)
+  ) 
+go
+
+
+
+/*      INDEX DE PARTENARIAT      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : TYPEDECONTROLE
+----------------------------------------------------------------------------- */
+
+create table TYPEDECONTROLE
+  (
+     IDTYPECONTROLE smallint identity (1, 1)   ,
+     LIBELLE char(255)  null  
+     ,
+     constraint PK_TYPEDECONTROLE primary key (IDTYPECONTROLE)
+  ) 
+go
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : ENVOI
+----------------------------------------------------------------------------- */
+
+create table ENVOI
+  (
+     IDCATEGORIE smallint  not null  ,
+     IDEVENEMENTS smallint  not null  ,
+     MESSAGE char(80)  null  ,
+     DATEENVOI datetime  null  
+     ,
+     constraint PK_ENVOI primary key (IDCATEGORIE, IDEVENEMENTS)
+  ) 
+go
+
+
+
+/*      INDEX DE ENVOI      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : A
+----------------------------------------------------------------------------- */
+
+create table A
+  (
+     IDZONE smallint  not null  ,
+     IDTYPECONTROLE smallint  not null  
+     ,
+     constraint PK_A primary key (IDZONE, IDTYPECONTROLE)
+  ) 
+go
+
+
+
+/*      INDEX DE A      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : CONVIER
+----------------------------------------------------------------------------- */
+
+create table CONVIER
+  (
+     IDVIP smallint  not null  ,
+     IDEVENEMENTS smallint  not null  
+     ,
+     constraint PK_CONVIER primary key (IDVIP, IDEVENEMENTS)
+  ) 
+go
+
+
+
+/*      INDEX DE CONVIER      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : EST_COMPOSÉ
+----------------------------------------------------------------------------- */
+
+create table EST_COMPOSÉ
+  (
+     IDCAMPAGNES smallint  not null  ,
+     IDEVENEMENTS smallint  not null  
+     ,
+     constraint PK_EST_COMPOSÉ primary key (IDCAMPAGNES, IDEVENEMENTS)
+  ) 
+go
+
+
+
+/*      INDEX DE EST_COMPOSÉ      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : POSSEDE
+----------------------------------------------------------------------------- */
+
+create table POSSEDE
+  (
+     IDENTREPRISE smallint  not null  ,
+     IDTYPECONTROLE smallint  not null  
+     ,
+     constraint PK_POSSEDE primary key (IDENTREPRISE, IDTYPECONTROLE)
+  ) 
+go
+
+
+
+/*      INDEX DE POSSEDE      */
+
+
+
+/* -----------------------------------------------------------------------------
+      TABLE : INTERVIENT
+----------------------------------------------------------------------------- */
+
+create table INTERVIENT
+  (
+     IDARTISTE smallint  not null  ,
+     IDEVENEMENTS smallint  not null  ,
+     CACHET int  null  
+     ,
+     constraint PK_INTERVIENT primary key (IDARTISTE, IDEVENEMENTS)
+  ) 
+go
+
+
+
+/*      INDEX DE INTERVIENT      */
+
+
+
+/* -----------------------------------------------------------------------------
+      REFERENCES SUR LES TABLES
+----------------------------------------------------------------------------- */
+
+
+
+alter table ASSOCIATIONS 
+     add constraint FK_ASSOCIATIONS_PAYSDEPENDANCE foreign key (IDPAYSDEPENDANCE) 
+               references PAYSDEPENDANCE (IDPAYSDEPENDANCE)
+go
+
+
+
+
+alter table CONTROLE 
+     add constraint FK_CONTROLE_TYPEDECONTROLE foreign key (IDTYPECONTROLE) 
+               references TYPEDECONTROLE (IDTYPECONTROLE)
+go
+
+
+
+
+alter table CONTROLE 
+     add constraint FK_CONTROLE_ENTREPRISECONTROLE foreign key (IDENTREPRISE) 
+               references ENTREPRISECONTROLE (IDENTREPRISE)
+go
+
+
+
+
+alter table CONTROLE 
+     add constraint FK_CONTROLE_ZONE_DE_STOCKAGE foreign key (IDZONE) 
+               references ZONE_DE_STOCKAGE (IDZONE)
+go
+
+
+
+
+alter table EVÈNEMENTS 
+     add constraint FK_EVÈNEMENTS_THEME foreign key (IDTHEME) 
+               references THEME (IDTHEME)
+go
+
+
+
+
+alter table VIP 
+     add constraint FK_VIP_CATÉGORIE foreign key (IDCATEGORIE) 
+               references CATÉGORIE (IDCATEGORIE)
+go
+
+
+
+
+alter table ZONE_DE_STOCKAGE 
+     add constraint FK_ZONE_DE_STOCKAGE_CATPRODUIT foreign key (CATPRODUIT) 
+               references CATPRODUIT (CATPRODUIT)
+go
+
+
+
+
+alter table CAMPAGNES_DE_SENSIBILISATION 
+     add constraint FK_CAMPAGNES_DE_SENSIBILISATION_AGENCE foreign key (IDAGENCE) 
+               references AGENCE (IDAGENCE)
+go
+
+
+
+
+alter table PARTENARIAT 
+     add constraint FK_PARTENARIAT_ASSOCIATIONS foreign key (IDASSOCIATIONS) 
+               references ASSOCIATIONS (IDASSOCIATIONS)
+go
+
+
+
+
+alter table PARTENARIAT 
+     add constraint FK_PARTENARIAT_ACTIONMENEE foreign key (IDACTION) 
+               references ACTIONMENEE (IDACTION)
+go
+
+
+
+
+alter table PARTENARIAT 
+     add constraint FK_PARTENARIAT_PAYSDEPENDANCE foreign key (IDPAYSDEPENDANCE) 
+               references PAYSDEPENDANCE (IDPAYSDEPENDANCE)
+go
+
+
+
+
+alter table ENVOI 
+     add constraint FK_ENVOI_CATÉGORIE foreign key (IDCATEGORIE) 
+               references CATÉGORIE (IDCATEGORIE)
+go
+
+
+
+
+alter table ENVOI 
+     add constraint FK_ENVOI_EVÈNEMENTS foreign key (IDEVENEMENTS) 
+               references EVÈNEMENTS (IDEVENEMENTS)
+go
+
+
+
+
+alter table A 
+     add constraint FK_A_ZONE_DE_STOCKAGE foreign key (IDZONE) 
+               references ZONE_DE_STOCKAGE (IDZONE)
+go
+
+
+
+
+alter table A 
+     add constraint FK_A_TYPEDECONTROLE foreign key (IDTYPECONTROLE) 
+               references TYPEDECONTROLE (IDTYPECONTROLE)
+go
+
+
+
+
+alter table CONVIER 
+     add constraint FK_CONVIER_VIP foreign key (IDVIP) 
+               references VIP (IDVIP)
+go
+
+
+
+
+alter table CONVIER 
+     add constraint FK_CONVIER_EVÈNEMENTS foreign key (IDEVENEMENTS) 
+               references EVÈNEMENTS (IDEVENEMENTS)
+go
+
+
+
+
+alter table EST_COMPOSÉ 
+     add constraint FK_EST_COMPOSÉ_CAMPAGNES_DE_SENSIBILISATION foreign key (IDCAMPAGNES) 
+               references CAMPAGNES_DE_SENSIBILISATION (IDCAMPAGNES)
+go
+
+
+
+
+alter table EST_COMPOSÉ 
+     add constraint FK_EST_COMPOSÉ_EVÈNEMENTS foreign key (IDEVENEMENTS) 
+               references EVÈNEMENTS (IDEVENEMENTS)
+go
+
+
+
+
+alter table POSSEDE 
+     add constraint FK_POSSEDE_ENTREPRISECONTROLE foreign key (IDENTREPRISE) 
+               references ENTREPRISECONTROLE (IDENTREPRISE)
+go
+
+
+
+
+alter table POSSEDE 
+     add constraint FK_POSSEDE_TYPEDECONTROLE foreign key (IDTYPECONTROLE) 
+               references TYPEDECONTROLE (IDTYPECONTROLE)
+go
+
+
+
+
+alter table INTERVIENT 
+     add constraint FK_INTERVIENT_ARTISTE foreign key (IDARTISTE) 
+               references ARTISTE (IDARTISTE)
+go
+
+
+
+
+alter table INTERVIENT 
+     add constraint FK_INTERVIENT_EVÈNEMENTS foreign key (IDEVENEMENTS) 
+               references EVÈNEMENTS (IDEVENEMENTS)
+go
+
+
+
+
+/*
+ -----------------------------------------------------------------------------
+               FIN DE GENERATION
+ -----------------------------------------------------------------------------
+*/

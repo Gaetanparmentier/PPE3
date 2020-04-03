@@ -439,7 +439,12 @@ create table INTERVIENT
   (
      IDARTISTE smallint  not null  ,
      IDEVENEMENTS smallint  not null  ,
+<<<<<<< HEAD
      CACHET int  null  ,
+=======
+     CACHET int  null  
+     ,
+>>>>>>> master
      constraint PK_INTERVIENT primary key (IDARTISTE, IDEVENEMENTS)
   ) 
 go
